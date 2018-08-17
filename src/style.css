@@ -1,0 +1,31 @@
+.webext-pref-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, .5);
+  overflow: auto;
+  z-index: 999999;
+  opacity: 0;
+  transition: opacity .2s linear;
+}
+.webext-pref-modal-open {
+  opacity: 1;
+}
+
+.webext-pref-iframe {
+  width: 90%;
+  background: white;
+  margin: 30px 0;
+  box-shadow: 0 0 30px black;
+  border-width: 0;
+  transform: translateY(-20px);
+  transition: transform .2s linear;
+}
+.webext-pref-modal-open .webext-pref-iframe {
+  transform: none;
+}

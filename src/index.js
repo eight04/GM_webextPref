@@ -8,6 +8,7 @@ function GM_webextPref({
 }) {
   const pref = createPref(_default);
   const initializing = pref.connect(createGMStorage());
+  let isOpen = false;
   
   return Object.assign(pref, {
     ready: () => initializing,
@@ -15,14 +16,19 @@ function GM_webextPref({
   });
   
   function openDialog() {
+    if (isOpen) {
+      return;
+    }
+    isOpen = true;
     const modal = document.createElement("div");
     modal.className = "webext-pref-modal";
     modal.onclick = e => {
       if (e.target === modal) {
-        modal.classList.add("webext-pref-modal-close");
-        modal.addEventListener("animationend", () => {
+        modal.classList.remove("webext-pref-modal-open");
+        modal.addEventListener("transitionend", () => {
           destroyView();
           modal.remove();
+          isOpen = false;
         });
       }
     };
@@ -66,6 +72,8 @@ function GM_webextPref({
       width: ${iframe.contentDocument.body.offsetWidth}px;
       height: ${iframe.contentDocument.body.scrollHeight}px;
     `;
+    
+    modal.classList.add("webext-pref-modal-open");
   }
   
   function getTitle() {
