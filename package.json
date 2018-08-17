@@ -1,0 +1,28 @@
+{
+  "name": "gm-webext-pref",
+  "version": "0.0.1",
+  "description": "Use webext-pref in userscripts.",
+  "author": "eight04 <eight04@gmail.com>",
+  "license": "MIT",
+  "dependencies": {},
+  "scripts": {
+    "lint": "eslint **/*.js --cache",
+    "test": "npm run lint && nyc --reporter=html mocha",
+    "preversion": "npm test",
+    "postversion": "git push --follow-tags"
+  },
+  "private": true,
+  "devDependencies": {
+    "eslint": "^5.2.0",
+    "jsdom": "^11.12.0",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^5.1.1",
+    "nyc": "^12.0.2",
+    "sinon": "^6.1.4"
+  },
+  "eslintIgnore": [
+    "dist",
+    "coverage"
+  ],
+  "files": []
+}

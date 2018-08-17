@@ -1,0 +1,17 @@
+{
+	"env": {
+		"es6": true,
+		"node": true,
+    "browser": true
+	},
+	"rules": {
+		"no-use-before-define": [2, "nofunc"],
+		"semi": [2, "always"]
+	},
+	"extends": [
+		"eslint:recommended"
+	],
+  "parserOptions": {
+    "ecmaVersion": 8
+  }
+}
