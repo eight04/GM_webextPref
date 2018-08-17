@@ -1,5 +1,5 @@
 {
-  "name": "gm-webext-pref",
+  "name": "GM_webextPref",
   "version": "0.0.1",
   "description": "Use webext-pref in userscripts.",
   "author": "eight04 <eight04@gmail.com>",
