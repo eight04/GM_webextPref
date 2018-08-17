@@ -16,20 +16,23 @@ Usage
 
 ```js
 const pref = GM_webextPref({
-  useImage: true,
-  excludeElements: "code, .highlight"
-}, [
-  {
-    key: "useImage",
-    type: "checkbox",
-    label: "Use image"
+  default: {
+    useImage: true,
+    excludeElements: "code, .highlight"
   },
-  {
-    key: "excludeElements",
-    type: "text",
-    label: "Exclude elements"
-  }
-]);
+  body: [
+    {
+      key: "useImage",
+      type: "checkbox",
+      label: "Use image"
+    },
+    {
+      key: "excludeElements",
+      type: "text",
+      label: "Exclude elements"
+    }
+  ]
+});
 
 pref.ready()
   .then(() => {
