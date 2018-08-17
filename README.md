@@ -60,7 +60,7 @@ Create a `pref` object. `pref` inherits all methods from the pref object returne
 
 `default` would be sent to `createPref`; `body`, `translate`, and `getNewScope` would be sent to `createView`.
 
-If `GM_registerMenuCommand` exists, the library would register a menu command like:
+If `GM_registerMenuCommand` exists, the function would register a menu command like:
 
 ```js
 GM_registerMenuCommand(GM_info.script.name + " - Configure", pref.openDialog);
