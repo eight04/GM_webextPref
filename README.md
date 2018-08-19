@@ -84,6 +84,10 @@ Open the config dialog.
 Changelog
 ---------
 
+* 0.1.4 (Aug 19, 2018)
+
+  - Add: style help text.
+
 * 0.1.3 (Aug 19, 2018)
 
   - Fix: import/export buttons.
