@@ -12,6 +12,6 @@ export default {
   plugins: [
     resolve(),
     inline(),
-    cjs()
+    cjs({nested: true})
   ]
 };
