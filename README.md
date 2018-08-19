@@ -84,6 +84,11 @@ Open the config dialog.
 Changelog
 ---------
 
+* 0.1.3 (Aug 19, 2018)
+
+  - Fix: import/export buttons.
+  - Enhance: larger title.
+
 * 0.1.2 (Aug 19, 2018)
 
   - Add: style checkbox children.
