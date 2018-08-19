@@ -18,6 +18,8 @@ const pref = GM_webextPref({
     text: "sadfasdf",
     number: 12345,
     checkbox: true,
+    checkbox2: false,
+    childText: "some text",
     textarea: "multi\nline",
     radio: "en",
     select: "orange",
@@ -38,6 +40,18 @@ const pref = GM_webextPref({
       key: "checkbox",
       label: "Checkbox field",
       type: "checkbox"
+    },
+    {
+      key: "checkbox2",
+      label: "Checkbox with children",
+      type: "checkbox",
+      children: [
+        {
+          key: "childText",
+          label: "Some text",
+          type: "text"
+        }
+      ]
     },
     {
       key: "textarea",
