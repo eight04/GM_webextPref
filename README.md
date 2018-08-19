@@ -84,6 +84,10 @@ Open the config dialog.
 Changelog
 ---------
 
+* 0.1.2 (Aug 19, 2018)
+
+  - Add: style checkbox children.
+
 * 0.1.1 (Aug 19, 2018)
 
   - Fix: missing metadata.
