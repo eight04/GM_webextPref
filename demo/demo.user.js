@@ -94,4 +94,8 @@ function output() {
 	document.querySelector(".output").textContent = JSON.stringify(pref.getAll(), null, 2);
 }
 
-pref.on("change", output);
+pref.ready()
+  .then(() => {
+    output();
+    pref.on("change", output);
+  });

@@ -1,4 +1,5 @@
-/* global $inline GM GM_info */
+/* eslint-env greasemonkey */
+/* global $inline */
 const {createPref, createView} = require("webext-pref");
 
 const createGMStorage = require("./storage");
@@ -13,6 +14,10 @@ function GM_webextPref({
   const initializing = pref.connect(createGMStorage());
   let isOpen = false;
   
+  if (typeof GM_registerMenuCommand === "function") {
+    GM_registerMenuCommand(`${getTitle()} - Configure`, openDialog);
+  }
+  
   return Object.assign(pref, {
     ready: () => initializing,
     openDialog
@@ -23,13 +28,18 @@ function GM_webextPref({
       return;
     }
     isOpen = true;
+    
+    let destroyView;
+    
     const modal = document.createElement("div");
     modal.className = "webext-pref-modal";
     modal.onclick = e => {
       if (e.target === modal) {
         modal.classList.remove("webext-pref-modal-open");
         modal.addEventListener("transitionend", () => {
-          destroyView(); // eslint-disable-line no-use-before-define
+          if (destroyView) {
+            destroyView();
+          }
           modal.remove();
           isOpen = false;
         });
@@ -51,32 +61,40 @@ function GM_webextPref({
           <style class="dialog-style"></style>
         </head>
         <body>
-          <h1 class="dialog-title"></h1>
           <div class="dialog-body"></div>
         </body>
       </html>
     `;
-    iframe.contentDocument.querySelector(".dialog-style").textContent = $inline("dialog.css|cssmin|stringify");
-    iframe.contentDocument.querySelector(".dialog-title").textContent = getTitle();
     
-    const destroyView = createView({
-      pref,
-      body,
-      translate,
-      root: iframe.contentDocument.querySelector(".dialog-body"),
-      getNewScope
-    });
-    
-    modal.appendChild(iframe);
+    modal.append(style, iframe);
     document.body.appendChild(modal);
     
-    // calc iframe size
-    iframe.style = `
-      width: ${iframe.contentDocument.body.offsetWidth}px;
-      height: ${iframe.contentDocument.body.scrollHeight}px;
-    `;
-    
-    modal.classList.add("webext-pref-modal-open");
+    iframe.onload = () => {
+      iframe.onload = null;
+      
+      iframe.contentDocument.querySelector(".dialog-style").textContent = $inline("dialog.css|cssmin|stringify");
+      
+      destroyView = createView({
+        pref,
+        body,
+        translate,
+        root: iframe.contentDocument.querySelector(".dialog-body"),
+        getNewScope
+      });
+      
+      const title = document.createElement("h2");
+      title.className = "dialog-title";
+      title.textContent = getTitle();
+      iframe.contentDocument.querySelector(".webext-pref-toolbar").prepend(title);
+      
+      // calc iframe size
+      iframe.style = `
+        width: ${iframe.contentDocument.body.offsetWidth}px;
+        height: ${iframe.contentDocument.body.scrollHeight}px;
+      `;
+      
+      modal.classList.add("webext-pref-modal-open");
+    };
   }
   
   function getTitle() {

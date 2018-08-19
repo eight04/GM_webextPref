@@ -860,7 +860,7 @@ var GM_webextPref = (function () {
     }
   }
 
-  /* global $inline GM GM_info */
+  /* eslint-env greasemonkey */
 
   function GM_webextPref({
     default: _default,
@@ -872,6 +872,10 @@ var GM_webextPref = (function () {
     const initializing = pref.connect(createGMStorage());
     let isOpen = false;
     
+    if (typeof GM_registerMenuCommand === "function") {
+      GM_registerMenuCommand(`${getTitle()} - Configure`, openDialog);
+    }
+    
     return Object.assign(pref, {
       ready: () => initializing,
       openDialog
@@ -882,13 +886,18 @@ var GM_webextPref = (function () {
         return;
       }
       isOpen = true;
+      
+      let destroyView;
+      
       const modal = document.createElement("div");
       modal.className = "webext-pref-modal";
       modal.onclick = e => {
         if (e.target === modal) {
           modal.classList.remove("webext-pref-modal-open");
           modal.addEventListener("transitionend", () => {
-            destroyView(); // eslint-disable-line no-use-before-define
+            if (destroyView) {
+              destroyView();
+            }
             modal.remove();
             isOpen = false;
           });
@@ -896,7 +905,7 @@ var GM_webextPref = (function () {
       };
       
       const style = document.createElement("style");
-      style.textContent = ".webext-pref-modal{position:fixed;top:0;right:0;bottom:0;left:0;display:flex;justify-content:center;align-items:center;background:rgba(0,0,0,.5);overflow:auto;z-index:999999;opacity:0;transition:opacity .2s linear}.webext-pref-modal-open{opacity:1}.webext-pref-iframe{width:90%;background:#fff;margin:30px 0;box-shadow:0 0 30px #000;border-width:0;transform:translateY(-20px);transition:transform .2s linear}.webext-pref-modal-open .webext-pref-iframe{transform:none}" + `
+      style.textContent = "body{overflow:hidden}.webext-pref-modal{position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,.5);overflow:auto;z-index:999999;opacity:0;transition:opacity .2s linear;text-align:center}.webext-pref-modal-open{opacity:1}.webext-pref-modal::before{content:\"\";display:inline-block;height:100%;vertical-align:middle}.webext-pref-iframe{display:inline-block;vertical-align:middle;width:90%;background:#fff;margin:30px 0;box-shadow:0 0 30px #000;border-width:0;transform:translateY(-20px);transition:transform .2s linear}.webext-pref-modal-open .webext-pref-iframe{transform:none}" + `
       body {
         padding-right: ${window.innerWidth - document.documentElement.offsetWidth}px;
       }
@@ -910,32 +919,40 @@ var GM_webextPref = (function () {
           <style class="dialog-style"></style>
         </head>
         <body>
-          <h1 class="dialog-title"></h1>
           <div class="dialog-body"></div>
         </body>
       </html>
     `;
-      iframe.contentDocument.querySelector(".dialog-style").textContent = ".webext-pref-toolbar{float:right}";
-      iframe.contentDocument.querySelector(".dialog-title").textContent = getTitle();
       
-      const destroyView = createView({
-        pref,
-        body,
-        translate,
-        root: iframe.contentDocument.querySelector(".dialog-body"),
-        getNewScope
-      });
-      
-      modal.appendChild(iframe);
+      modal.append(style, iframe);
       document.body.appendChild(modal);
       
-      // calc iframe size
-      iframe.style = `
-      width: ${iframe.contentDocument.body.offsetWidth}px;
-      height: ${iframe.contentDocument.body.scrollHeight}px;
-    `;
-      
-      modal.classList.add("webext-pref-modal-open");
+      iframe.onload = () => {
+        iframe.onload = null;
+        
+        iframe.contentDocument.querySelector(".dialog-style").textContent = "body{display:inline-block;font-size:16px;font-family:sans-serif;white-space:nowrap;overflow:hidden;margin:0;color:#3d3d3d;line-height:1}input[type=number],input[type=text],select{display:block;width:100%;box-sizing:border-box;height:2em;font:inherit;padding:0 .3em;border:1px solid #9e9e9e}select[multiple]{height:6em}select:hover{cursor:pointer}input[type=checkbox],input[type=radio]{display:inline-block;width:1em;height:1em;font:inherit;margin:0}textarea{display:block;width:100%;box-sizing:border-box;height:6em;font:inherit;line-height:1.5;padding:0 .3em;border:1px solid #9e9e9e}button{box-sizing:border-box;height:2em;font:inherit;border:1px solid #9e9e9e}button:hover{cursor:pointer}.dialog-body{margin:2em}.webext-pref-toolbar{display:flex;align-items:center;margin-bottom:1em}.dialog-title{font-size:1.2em;margin:0 2em 0 0}.webext-pref-toolbar button{font-size:.7em;margin-left:.5em}.webext-pref-nav{display:flex;margin-bottom:1em}.webext-pref-nav select{text-align:center;text-align-last:center}.webext-pref-nav button{width:2em}.webext-pref-number,.webext-pref-select,.webext-pref-text,.webext-pref-textarea{margin:1em 0}.webext-pref-body>:first-child{margin-top:0}.webext-pref-body>:last-child{margin-bottom:0}.webext-pref-number>input,.webext-pref-select>select,.webext-pref-text>input,.webext-pref-textarea>textarea{margin:.3em 0}.webext-pref-checkbox{margin:.5em 0;padding-left:1.5em}.webext-pref-checkbox>input{margin-left:-1.5em;margin-right:.5em;vertical-align:middle}.webext-pref-checkbox>label{cursor:pointer;vertical-align:middle}.webext-pref-checkbox>label:hover{color:#707070}";
+        
+        destroyView = createView({
+          pref,
+          body,
+          translate,
+          root: iframe.contentDocument.querySelector(".dialog-body"),
+          getNewScope
+        });
+        
+        const title = document.createElement("h2");
+        title.className = "dialog-title";
+        title.textContent = getTitle();
+        iframe.contentDocument.querySelector(".webext-pref-toolbar").prepend(title);
+        
+        // calc iframe size
+        iframe.style = `
+        width: ${iframe.contentDocument.body.offsetWidth}px;
+        height: ${iframe.contentDocument.body.scrollHeight}px;
+      `;
+        
+        modal.classList.add("webext-pref-modal-open");
+      };
     }
     
     function getTitle() {
