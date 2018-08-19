@@ -84,6 +84,10 @@ Open the config dialog.
 Changelog
 ---------
 
+* 0.1.5 (Aug 20, 2018)
+
+  - Update webext-pref to 0.3.5. Fixed navbar error.
+
 * 0.1.4 (Aug 19, 2018)
 
   - Add: style help text.
