@@ -1,3 +1,21 @@
+// ==UserScript==
+// @name GM_webextPref
+// @version 0.1.0
+// @description A config library powered by webext-pref.
+// @license MIT
+// @author eight04 <eight04@gmail.com>
+// @homepageURL https://github.com/eight04/GM_webextPref
+// @supportURL https://github.com/eight04/GM_webextPref/issues
+// @namespace eight04.blogspot.com
+// @grant GM_getValue
+// @grant GM.getValue
+// @grant GM_setValue
+// @grant GM.setValue
+// @grant GM_addValueChangeListener
+// @grant GM_registerMenuCommand
+// @include *
+// ==/UserScript==
+
 var GM_webextPref = (function () {
   'use strict';
 

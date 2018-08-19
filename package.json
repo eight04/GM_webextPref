@@ -1,7 +1,7 @@
 {
   "name": "GM_webextPref",
   "version": "0.1.0",
-  "description": "Use webext-pref in userscripts.",
+  "description": "A config library powered by webext-pref.",
   "author": "eight04 <eight04@gmail.com>",
   "license": "MIT",
   "dependencies": {
@@ -27,11 +27,24 @@
     "rollup-plugin-inline-js": "^0.3.0",
     "rollup-plugin-node-resolve": "^3.3.0",
     "sinon": "^6.1.4",
-    "stylus": "^0.54.5"
+    "stylus": "^0.54.5",
+    "userscript-meta-cli": "^0.4.2"
   },
   "eslintIgnore": [
     "dist",
     "coverage"
   ],
-  "files": []
+  "files": [],
+  "userscript": {
+    "namespace": "eight04.blogspot.com",
+    "grant": [
+      "GM_getValue",
+      "GM.getValue",
+      "GM_setValue",
+      "GM.setValue",
+      "GM_addValueChangeListener",
+      "GM_registerMenuCommand"
+    ]
+  },
+  "repository": "eight04/GM_webextPref"
 }
