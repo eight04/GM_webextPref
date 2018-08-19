@@ -478,7 +478,9 @@ var GM_webextPref = (function () {
       
       function updateInputs(changes) {
         for (const [key, value] of Object.entries(changes)) {
-          _body.inputs[key].setValue(value);
+          if (_body.inputs[key]) {
+            _body.inputs[key].setValue(value);
+          }
         }
       }
     }
@@ -739,8 +741,9 @@ var GM_webextPref = (function () {
       }
       input.id = `pref-${el.key}`;
       input.onchange = () => {
-        const value = el.type !== "select" || !el.multiple ? input.value :
-          [...input.selectedOptions].map(i => i.value);
+        const value = el.type === "select" && el.multiple ?
+          [...input.selectedOptions].map(i => i.value) :
+          el.type === "number" ? Number(input.value) : input.value;
         if (el.validate) {
           let err;
           try {
