@@ -158,3 +158,8 @@ button:focus {
 .webext-pref-checkbox-children > :last-child > :last-child {
   margin-bottom: 0;
 }
+
+/* helps */
+.webext-pref-help {
+  color: #969696;
+}
