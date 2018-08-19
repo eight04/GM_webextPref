@@ -79,6 +79,6 @@ Open the config dialog.
 Changelog
 ---------
 
-* 0.1.0 (Next)
+* 0.1.0 (Aug 19, 2018)
 
   - First release.
