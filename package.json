@@ -1,6 +1,6 @@
 {
   "name": "GM_webextPref",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Use webext-pref in userscripts.",
   "author": "eight04 <eight04@gmail.com>",
   "license": "MIT",
