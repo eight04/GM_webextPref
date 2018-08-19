@@ -79,6 +79,10 @@ Open the config dialog.
 Changelog
 ---------
 
+* 0.1.1 (Aug 19, 2018)
+
+  - Fix: missing metadata.
+
 * 0.1.0 (Aug 19, 2018)
 
   - First release.
