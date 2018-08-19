@@ -1,3 +1,142 @@
+body {
+  display: inline-block;
+  font-size: 16px;
+  font-family: sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0;
+  color: #3d3d3d;
+  line-height: 1;
+}
+
+input[type=text],
+input[type=number],
+select,
+textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  height: 2em;
+  font: inherit;
+  padding: 0 0.3em;
+  border: 1px solid #9e9e9e;
+  cursor: pointer;
+}
+
+select[multiple],
+textarea {
+  height: 6em;
+}
+
+input[type=text]:hover,
+input[type=number]:hover,
+select:hover,
+textarea:hover {
+  border-color: #d5d5d5;
+}
+
+input[type=text]:focus,
+input[type=number]:focus,
+select:focus,
+textarea:focus {
+  cursor: auto;
+  border-color: #3A93EE;
+}
+
+textarea {
+  line-height: 1.5;
+}
+
+input[type=checkbox],
+input[type=radio] {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  font: inherit;
+  margin: 0;
+}
+
+button {
+  box-sizing: border-box;
+  height: 2em;
+  font: inherit;
+  border: 1px solid #9e9e9e;
+  cursor: pointer;
+  background: transparent;
+}
+button:hover {
+  border-color: #d5d5d5;
+}
+button:focus {
+  border-color: #3A93EE;
+}
+
+.dialog-body {
+  margin: 2em;
+}
+
+/* toolbar */
 .webext-pref-toolbar {
-  float: right;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+}
+.dialog-title {
+  font-size: 1.2em;
+  margin: 0 2em 0 0;
+}
+.webext-pref-toolbar button {
+  font-size: 0.7em;
+  margin-left: 0.5em;
+}
+
+/* nav */
+.webext-pref-nav {
+  display: flex;
+  margin-bottom: 1em;
+}
+.webext-pref-nav select {
+  text-align: center;
+  text-align-last: center;
+}
+.webext-pref-nav button {
+  width: 2em;
+}
+
+/* body */
+.webext-pref-text,
+.webext-pref-number,
+.webext-pref-textarea,
+.webext-pref-select {
+  margin: 1em 0;
+}
+.webext-pref-body > :first-child {
+  margin-top: 0;
+}
+.webext-pref-body > :last-child {
+  margin-bottom: 0;
+}
+
+.webext-pref-text > input,
+.webext-pref-number > input,
+.webext-pref-textarea > textarea,
+.webext-pref-select > select {
+  margin: 0.3em 0;
+}
+
+.webext-pref-checkbox {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+}
+.webext-pref-checkbox > input {
+  margin-left: -1.5em;
+  margin-right: 0.5em;
+  vertical-align: middle;
+}
+.webext-pref-checkbox > label {
+  cursor: pointer;
+  vertical-align: middle;
+}
+.webext-pref-checkbox > label:hover {
+  color: #707070;
 }

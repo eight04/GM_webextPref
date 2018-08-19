@@ -4,21 +4,30 @@
   "description": "Use webext-pref in userscripts.",
   "author": "eight04 <eight04@gmail.com>",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "webext-pref": "^0.3.3"
+  },
   "scripts": {
     "lint": "eslint **/*.js --cache",
     "test": "npm run lint && nyc --reporter=html mocha",
+    "build": "rollup -c",
     "preversion": "npm test",
+    "version": "npm run build && git add .",
     "postversion": "git push --follow-tags"
   },
   "private": true,
   "devDependencies": {
-    "eslint": "^5.2.0",
+    "eslint": "^5.4.0",
     "jsdom": "^11.12.0",
     "jsdom-global": "^3.0.2",
     "mocha": "^5.1.1",
     "nyc": "^12.0.2",
-    "sinon": "^6.1.4"
+    "rollup": "^0.64.1",
+    "rollup-plugin-cjs-es": "^0.6.0",
+    "rollup-plugin-inline-js": "^0.3.0",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "sinon": "^6.1.4",
+    "stylus": "^0.54.5"
   },
   "eslintIgnore": [
     "dist",
