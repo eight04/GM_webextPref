@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name GM_webextPref
-// @version 0.1.4
+// @version 0.1.5
 // @description A config library powered by webext-pref.
 // @license MIT
 // @author eight04 <eight04@gmail.com>
@@ -430,11 +430,11 @@ var GM_webextPref = (function () {
     
     root.append(toolbar.frag, nav.frag, form.frag);
     
-    pref.on("scopeChange", nav.updateScope);
-    nav.updateScope(pref.getCurrentScope());
-    
     pref.on("scopeListChange", nav.updateScopeList);
     nav.updateScopeList(pref.getScopeList());
+    
+    pref.on("scopeChange", nav.updateScope);
+    nav.updateScope(pref.getCurrentScope());
     
     pref.on("change", form.updateInputs);
     form.updateInputs(pref.getAll());
