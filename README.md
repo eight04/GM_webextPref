@@ -1,15 +1,20 @@
 GM_webextPref
 =============
 
-[![Build Status](https://travis-ci.org/eight04/gm-webext-pref.svg?branch=master)](https://travis-ci.org/eight04/gm-webext-pref)
-[![codecov](https://codecov.io/gh/eight04/gm-webext-pref/branch/master/graph/badge.svg)](https://codecov.io/gh/eight04/gm-webext-pref)
+[![Build Status](https://travis-ci.com/eight04/GM_webextPref.svg?branch=master)](https://travis-ci.com/eight04/GM_webextPref)
+[![codecov](https://codecov.io/gh/eight04/GM_webextPref/branch/master/graph/badge.svg)](https://codecov.io/gh/eight04/GM_webextPref)
 
 Use webext-pref in userscripts. This library includes `createPref`, `createView`, a storage object implemented with GM API, and a dialog service.
 
 Installation
 ------------
 
-[Greasy Fork](http://example.com)
+[Greasy Fork](https://greasyfork.org/zh-TW/scripts/371339-gm-webextpref)
+
+Demo
+----
+
+https://rawgit.com/eight04/GM_webextPref/master/demo/demo.html
 
 Usage
 -----
