@@ -82,8 +82,9 @@ button:focus {
   margin-bottom: 1em;
 }
 .dialog-title {
-  font-size: 1.2em;
+  font-size: 1.34em;
   margin: 0 2em 0 0;
+  flex-grow: 1;
 }
 .webext-pref-toolbar button {
   font-size: 0.7em;
