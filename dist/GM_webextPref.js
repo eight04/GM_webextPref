@@ -826,7 +826,7 @@ var GM_webextPref = (function () {
     function getMany(keys) {
       return Promise.all(keys.map(k => 
         getValue(`webext-pref/${k}`)
-          .then(value => [k, JSON.parse(value)])
+          .then(value => [k, typeof value === "string" ? JSON.parse(value) : value])
       ))
         .then(entries => {
           const output = {};
