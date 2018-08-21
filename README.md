@@ -56,14 +56,17 @@ This module exports a single function.
 const pref = GM_webextPref({
   default: Object,
   body: Array,
-  translate?: Object,
-  getNewScope?: () => newScopeName: String
+  getNewScope?: () => newScopeName: String,
+  getMessage?: Function,
+  alert?: Function,
+  confirm?: Function,
+  prompt?: Function
 });
 ```
 
 Create a `pref` object. `pref` inherits all methods from the pref object returned by `createPref`.
 
-`default` would be sent to `createPref`; `body`, `translate`, and `getNewScope` would be sent to `createView`.
+`default` would be sent to `createPref`; `body`, `getNewScope`, `getMessage`, `alert`, `confirm`, and `prompt` would be sent to `createView`.
 
 If `GM_registerMenuCommand` exists, the function would register a menu command like:
 
@@ -83,6 +86,10 @@ Open the config dialog.
 
 Changelog
 ---------
+
+* 0.2.0 (Aug 21, 2018)
+
+  - Update webext-pref to 0.4.0. Drop `translate` arg.
 
 * 0.1.5 (Aug 20, 2018)
 
