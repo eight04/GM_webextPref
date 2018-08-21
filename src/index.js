@@ -7,8 +7,11 @@ const createGMStorage = require("./storage");
 function GM_webextPref({
   default: _default,
   body,
-  translate,
-  getNewScope
+  getNewScope,
+  getMessage,
+  alert,
+  confirm,
+  prompt
 }) {
   const pref = createPref(_default);
   const initializing = pref.connect(createGMStorage());
@@ -77,9 +80,12 @@ function GM_webextPref({
       destroyView = createView({
         pref,
         body,
-        translate,
         root: iframe.contentDocument.querySelector(".dialog-body"),
-        getNewScope
+        getNewScope,
+        getMessage,
+        alert,
+        confirm,
+        prompt
       });
       
       const title = document.createElement("h2");

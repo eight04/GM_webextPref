@@ -415,15 +415,27 @@ var GM_webextPref = (function () {
 
   /* global browser chrome */
 
-  function createView({root, pref, body, translate = {}, getNewScope = () => ""}) {
-    translate = Object.assign({
-      inputNewScopeName: "Add new scope",
-      learnMore: "Learn more",
-      import: "Import",
-      export: "Export",
-      pasteSettings: "Paste settings",
-      copySettings: "Copy settings"
-    }, translate);
+  function promisify$1(fn) {
+    return (...args) => {
+      try {
+        return Promise.resolve(fn(...args));
+      } catch (err) {
+        return Promise.reject(err);
+      }
+    };
+  }
+
+  function createView({
+    root,
+    pref,
+    body,
+    getMessage = () => {},
+    getNewScope = () => "",
+    prompt: _prompt = promisify$1(prompt),
+    alert: _alert = promisify$1(alert),
+    confirm: _confirm = promisify$1(confirm)
+  }) {
+    getMessage = createGetMessage(getMessage);
     const toolbar = createToolbar();
     const nav = createNav();
     const form = createForm(body);
@@ -441,6 +453,28 @@ var GM_webextPref = (function () {
     
     return destroy;
     
+    function createGetMessage(userGetMessage) {
+      const DEFAULT = {
+        addScopePrompt: "Add new scope",
+        deleteScopeConfirm: scope => `Delete scope ${scope}?`,
+        learnMoreButton: "Learn more",
+        importButton: "Import",
+        exportButton: "Export",
+        importPrompt: "Paste settings",
+        exportPrompt: "Copy settings"
+      };
+      return (key, params) => {
+        const message = userGetMessage(key, params);
+        if (message) {
+          return message;
+        }
+        if (typeof DEFAULT[key] === "function") {
+          return DEFAULT[key](params);
+        }
+        return DEFAULT[key];
+      };
+    }
+    
     function createToolbar() {
       const container = document.createElement("div");
       container.className = "webext-pref-toolbar";
@@ -448,30 +482,29 @@ var GM_webextPref = (function () {
       const importButton = document.createElement("button");
       importButton.className = "webext-pref-import browser-style";
       importButton.type = "button";
-      importButton.textContent = translate.import;
+      importButton.textContent = getMessage("importButton");
       importButton.onclick = () => {
-        Promise.resolve()
-          .then(() => {
-            const input = prompt(translate.pasteSettings);
+        _prompt(getMessage("importPrompt"))
+          .then(input => {
             if (input == null) {
               return;
             }
             const settings = JSON.parse(input);
             return pref.import(settings);
           })
-          .catch(err => alert(err.message));
+          .catch(err => _alert(err.message));
       };
       
       const exportButton = document.createElement("button");
       exportButton.className = "webext-pref-export browser-style";
       exportButton.type = "button";
-      exportButton.textContent = translate.export;
+      exportButton.textContent = getMessage("exportButton");
       exportButton.onclick = () => {
         pref.export()
-          .then(settings => {
-            prompt(translate.copySettings, JSON.stringify(settings));
-          })
-          .catch(err => alert(err.message));
+          .then(settings =>
+            _prompt(getMessage("exportPrompt"), JSON.stringify(settings))
+          )
+          .catch(err => _alert(err.message));
       };
       
       container.append(importButton, exportButton);
@@ -514,37 +547,40 @@ var GM_webextPref = (function () {
       };
       
       const deleteButton = document.createElement("button");
-      deleteButton.className = "browser-style";
+      deleteButton.className = "browser-style webext-pref-delete-scope";
       deleteButton.type = "button";
       deleteButton.textContent = "x";
       deleteButton.onclick = () => {
-        pref.deleteScope(pref.getCurrentScope())
-          .catch(err => {
-            alert(err.message);
-          });
+        const scopeName = pref.getCurrentScope();
+        _confirm(getMessage("deleteScopeConfirm", scopeName))
+          .then(result => {
+            if (result) {
+              return pref.deleteScope(scopeName);
+            }
+          })
+          .catch(err => _alert(err.message));
       };
       
       const addButton = document.createElement("button");
-      addButton.className = "browser-style";
+      addButton.className = "browser-style webext-pref-add-scope";
       addButton.type = "button";
       addButton.textContent = "+";
       addButton.onclick = () => {
-        addNewScope().catch(err => {
-          alert(err.message);
-        });
-          
-        function addNewScope() {
-          let scopeName = prompt(translate.inputNewScopeName, getNewScope());
-          if (scopeName == null) {
-            return Promise.resolve();
-          }
-          scopeName = scopeName.trim();
-          if (!scopeName) {
-            return Promise.reject(new Error("the value is empty"));
-          }
-          return pref.addScope(scopeName)
-            .then(() => pref.setCurrentScope(scopeName));
-        }
+        _prompt(getMessage("addScopePrompt"), getNewScope())
+          .then(scopeName => {
+            if (scopeName == null) {
+              return;
+            }
+            scopeName = scopeName.trim();
+            if (!scopeName) {
+              throw new Error("the value is empty");
+            }
+            return pref.addScope(scopeName)
+              .then(() => pref.setCurrentScope(scopeName));
+          })
+          .catch(err => {
+            _alert(err.message);
+          });
       };
       
       container.append(select, deleteButton, addButton);
@@ -824,7 +860,7 @@ var GM_webextPref = (function () {
       a.href = url;
       a.target = "_blank";
       a.rel = "noopener";
-      a.textContent = translate.learnMore;
+      a.textContent = getMessage("learnMoreButton");
       return a;
     }
   }
@@ -886,8 +922,11 @@ var GM_webextPref = (function () {
   function GM_webextPref({
     default: _default,
     body,
-    translate,
-    getNewScope
+    getNewScope,
+    getMessage,
+    alert,
+    confirm,
+    prompt
   }) {
     const pref = createPref(_default);
     const initializing = pref.connect(createGMStorage());
@@ -956,9 +995,12 @@ var GM_webextPref = (function () {
         destroyView = createView({
           pref,
           body,
-          translate,
           root: iframe.contentDocument.querySelector(".dialog-body"),
-          getNewScope
+          getNewScope,
+          getMessage,
+          alert,
+          confirm,
+          prompt
         });
         
         const title = document.createElement("h2");
