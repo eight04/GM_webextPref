@@ -11,6 +11,8 @@
 // @grant GM.getValue
 // @grant GM_setValue
 // @grant GM.setValue
+// @grant GM_deleteValue
+// @grant GM.deleteValue
 // @grant GM_addValueChangeListener
 // @grant GM_registerMenuCommand
 // @include *
@@ -403,9 +405,12 @@ var GM_webextPref = (function () {
       if (scope === "global") {
         return Promise.reject(new Error(`cannot delete global`));
       }
-      return storage.setMany({
-        scopeList: scopeList.filter(s => s != scope)
-      });
+      return Promise.all([
+        storage.setMany({
+          scopeList: scopeList.filter(s => s != scope)
+        }),
+        storage.deleteMany(Object.keys(DEFAULT).map(k => `${scope}${sep}${k}`))
+      ]);
     }
     
     function getScopeList() {
@@ -874,17 +879,27 @@ var GM_webextPref = (function () {
   /* eslint-env greasemonkey */
 
   function createGMStorage() {
-    const setValue = typeof GM_setValue === "function" ? promisify(GM_setValue) : GM.setValue.bind(GM);
-    const getValue = typeof GM_getValue === "function" ? promisify(GM_getValue) : GM.getValue.bind(GM);
+    const setValue = typeof GM_setValue === "function" ?
+      promisify(GM_setValue) : GM.setValue.bind(GM);
+    const getValue = typeof GM_getValue === "function" ?
+      promisify(GM_getValue) : GM.getValue.bind(GM);
+    const deleteValue = typeof GM_deleteValue === "function" ?
+      promisify(GM_deleteValue) : GM.deleteValue.bind(GM);
     const events = new EventEmitter;
     
     if (typeof GM_addValueChangeListener === "function") {
       GM_addValueChangeListener("webext-pref-message", (name, oldValue, newValue) => {
-        events.emit("change", JSON.parse(newValue));
+        const changes = JSON.parse(newValue);
+        for (const key of Object.keys(changes)) {
+          if (typeof changes[key] === "object" && changes[key].$undefined) {
+            changes[key] = undefined;
+          }
+        }
+        events.emit("change", changes);
       });
     }
     
-    return Object.assign(events, {getMany, setMany});
+    return Object.assign(events, {getMany, setMany, deleteMany});
     
     function getMany(keys) {
       return Promise.all(keys.map(k => 
@@ -907,6 +922,26 @@ var GM_webextPref = (function () {
         .then(() => {
           if (typeof GM_addValueChangeListener === "function") {
             return setValue("webext-pref-message", JSON.stringify(changes));
+          }
+          events.emit("change", changes);
+        });
+    }
+    
+    function deleteMany(keys) {
+      return Promise.all(keys.map(k => deleteValue(`webext-pref/${k}`)))
+        .then(() => {
+          if (typeof GM_addValueChangeListener === "function") {
+            const changes = {};
+            for (const key of keys) {
+              changes[key] = {
+                $undefined: true
+              };
+            }
+            return setValue("webext-pref-message", JSON.stringify(changes));
+          }
+          const changes = {};
+          for (const key of keys) {
+            changes[key] = undefined;
           }
           events.emit("change", changes);
         });

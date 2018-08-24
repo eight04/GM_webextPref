@@ -5,7 +5,7 @@
   "author": "eight04 <eight04@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "webext-pref": "^0.4.1"
+    "webext-pref": "^0.5.0"
   },
   "scripts": {
     "lint": "eslint **/*.js --cache",
@@ -39,6 +39,8 @@
       "GM.getValue",
       "GM_setValue",
       "GM.setValue",
+      "GM_deleteValue",
+      "GM.deleteValue",
       "GM_addValueChangeListener",
       "GM_registerMenuCommand"
     ]
