@@ -87,6 +87,10 @@ Open the config dialog.
 Changelog
 ---------
 
+* 0.2.1 (Aug 24, 2018)
+
+  - Update webext-pref to 0.4.1. Add navbar tooltips.
+
 * 0.2.0 (Aug 21, 2018)
 
   - Update webext-pref to 0.4.0. Drop `translate` arg.
