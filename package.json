@@ -39,6 +39,8 @@
       "GM.getValue",
       "GM_setValue",
       "GM.setValue",
+      "GM_deleteValue",
+      "GM.deleteValue",
       "GM_addValueChangeListener",
       "GM_registerMenuCommand"
     ]

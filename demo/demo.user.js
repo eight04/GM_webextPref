@@ -10,6 +10,7 @@
 // @grant       GM_registerMenuCommand
 // @grant       GM_getValue
 // @grant       GM_setValue
+// @grant       GM_deleteValue
 // @grant       GM_addValueChangeListener
 // ==/UserScript==
 
