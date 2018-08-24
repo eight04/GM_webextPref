@@ -5,7 +5,7 @@
   "author": "eight04 <eight04@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "webext-pref": "^0.4.0"
+    "webext-pref": "^0.4.1"
   },
   "scripts": {
     "lint": "eslint **/*.js --cache",
