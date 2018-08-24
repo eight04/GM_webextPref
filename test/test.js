@@ -18,6 +18,9 @@ testStorage({
     global.GM_getValue = key => {
       return map.get(key);
     };
+    global.GM_deleteValue = key => {
+      map.delete(key);
+    };
     global.GM_addValueChangeListener = (key, callback) => {
       listeners.set(key, callback);
     };
@@ -25,6 +28,7 @@ testStorage({
   cleanup: () => {
     delete global.GM_setValue;
     delete global.GM_getValue;
+    delete global.GM_deleteValue;
     delete global.GM_addValueChangeListener;
   }
 });
