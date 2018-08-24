@@ -87,6 +87,10 @@ Open the config dialog.
 Changelog
 ---------
 
+* 0.3.0 (Aug 25, 2018)
+
+  - Update webext-pref to 0.5.0. Now the script requires `GM_deleteValue/GM.deleteValue` APIs.
+
 * 0.2.1 (Aug 24, 2018)
 
   - Update webext-pref to 0.4.1. Add navbar tooltips.
