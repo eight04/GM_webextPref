@@ -5,7 +5,7 @@
   "author": "eight04 <eight04@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "webext-pref": "^0.5.0"
+    "webext-pref": "^0.5.1"
   },
   "scripts": {
     "lint": "eslint **/*.js --cache",
@@ -17,14 +17,14 @@
   },
   "private": true,
   "devDependencies": {
-    "eslint": "^5.4.0",
-    "mocha": "^5.1.1",
-    "nyc": "^12.0.2",
-    "rollup": "^0.64.1",
-    "rollup-plugin-cjs-es": "^0.6.0",
+    "eslint": "^5.16.0",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1",
+    "rollup": "^1.14.2",
+    "rollup-plugin-cjs-es": "^0.8.0",
     "rollup-plugin-inline-js": "^0.3.0",
-    "rollup-plugin-node-resolve": "^3.3.0",
-    "sinon": "^6.1.4",
+    "rollup-plugin-node-resolve": "^5.0.1",
+    "sinon": "^7.3.2",
     "userscript-meta-cli": "^0.4.2"
   },
   "eslintIgnore": [
