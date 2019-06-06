@@ -202,13 +202,13 @@ var GM_webextPref = (function () {
     }
 
   })(EventLite);
-  var EventEmitter = _module_.exports;
+  var EventLite$1 = _module_.exports;
 
   function createPref(DEFAULT, sep = "/") {
     let storage;
     let currentScope = "global";
     let scopeList = ["global"];
-    const events = new EventEmitter;
+    const events = new EventLite$1;
     const globalCache = {};
     let scopedCache = {};
     let currentCache = Object.assign({}, DEFAULT);
@@ -418,9 +418,11 @@ var GM_webextPref = (function () {
     }
   }
 
+  /* global chrome */
+
   /* global browser chrome */
 
-  function promisify$1(fn) {
+  function promisify(fn) {
     return (...args) => {
       try {
         return Promise.resolve(fn(...args));
@@ -436,9 +438,9 @@ var GM_webextPref = (function () {
     body,
     getMessage = () => {},
     getNewScope = () => "",
-    prompt: _prompt = promisify$1(prompt),
-    alert: _alert = promisify$1(alert),
-    confirm: _confirm = promisify$1(confirm)
+    prompt: _prompt = promisify(prompt),
+    alert: _alert = promisify(alert),
+    confirm: _confirm = promisify(confirm)
   }) {
     getMessage = createGetMessage(getMessage);
     const toolbar = createToolbar();
@@ -885,7 +887,7 @@ var GM_webextPref = (function () {
       promisify(GM_getValue) : GM.getValue.bind(GM);
     const deleteValue = typeof GM_deleteValue === "function" ?
       promisify(GM_deleteValue) : GM.deleteValue.bind(GM);
-    const events = new EventEmitter;
+    const events = new EventLite$1;
     
     if (typeof GM_addValueChangeListener === "function") {
       GM_addValueChangeListener("webext-pref-message", (name, oldValue, newValue) => {
