@@ -38,16 +38,14 @@ function GM_webextPref({
     const modal = document.createElement("div");
     modal.className = "webext-pref-modal";
     modal.onclick = e => {
-      if (e.target === modal) {
-        modal.classList.remove("webext-pref-modal-open");
-        modal.addEventListener("transitionend", () => {
-          if (destroyView) {
-            destroyView();
-          }
-          modal.remove();
-          isOpen = false;
-        });
-      }
+      modal.classList.remove("webext-pref-modal-open");
+      modal.addEventListener("transitionend", () => {
+        if (destroyView) {
+          destroyView();
+        }
+        modal.remove();
+        isOpen = false;
+      });
     };
     
     const style = document.createElement("style");
@@ -70,7 +68,11 @@ function GM_webextPref({
       </html>
     `;
     
-    modal.append(style, iframe);
+    const wrap = document.createElement("div");
+    wrap.className = "webext-pref-iframe-wrap";
+    
+    wrap.append(iframe);
+    modal.append(style, wrap);
     document.body.appendChild(modal);
     
     iframe.onload = () => {
@@ -83,7 +85,7 @@ function GM_webextPref({
         body,
         getMessage
       }));
-      // iframe.contentDocument.querySelector(".dialog-body").append(root)
+      
       destroyView = createBinding({
         pref,
         
@@ -100,6 +102,10 @@ function GM_webextPref({
       title.className = "dialog-title";
       title.textContent = getTitle();
       iframe.contentDocument.querySelector(".webext-pref-toolbar").prepend(title);
+      
+      if (iframe.contentDocument.body.offsetWidth > modal.offsetWidth) {
+        iframe.contentDocument.body.classList.add("responsive");
+      }
       
       // calc iframe size
       iframe.style = `

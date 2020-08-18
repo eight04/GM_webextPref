@@ -173,3 +173,23 @@ button:focus {
 .webext-pref-help {
   color: #969696;
 }
+
+/* small ui */
+.responsive {
+  white-space: normal;
+}
+.responsive .dialog-body {
+  margin: 1em;
+}
+.responsive .webext-pref-toolbar {
+  display: block;
+}
+.responsive .dialog-title {
+  margin: 0 0 1em 0;
+}
+.responsive .webext-pref-toolbar button {
+  font-size: 1em;
+}
+.responsive .webext-pref-nav {
+  display: block;
+}
