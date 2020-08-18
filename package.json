@@ -17,7 +17,7 @@
     "version": "npm run build && git add .",
     "postversion": "git push --follow-tags"
   },
-  "main": "dist/GM_webextPref.node.js",
+  "main": "dist/GM_webextPref.node.mjs",
   "unpkg": "dist/GM_webextPref.user.js",
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^9.0.0",
