@@ -7,7 +7,7 @@
   "dependencies": {
     "event-lite": "^0.1.2",
     "webext-pref": "^0.6.0",
-    "webext-pref-ui": "^0.2.0"
+    "webext-pref-ui": "^0.2.1"
   },
   "scripts": {
     "lint": "eslint **/*.js --cache",

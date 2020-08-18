@@ -796,7 +796,7 @@ var GM_webextPref = (function () {
         params = [params];
       }
 
-      return defaultMessage.replace(/\$(d+)/g, (m, n) => params[n - 1]);
+      return defaultMessage.replace(/\$(\d+)/g, (m, n) => params[n - 1]);
     };
   }
 
@@ -1475,7 +1475,7 @@ var GM_webextPref = (function () {
       
       const modal = document.createElement("div");
       modal.className = "webext-pref-modal";
-      modal.onclick = e => {
+      modal.onclick = () => {
         modal.classList.remove("webext-pref-modal-open");
         modal.addEventListener("transitionend", () => {
           if (destroyView) {

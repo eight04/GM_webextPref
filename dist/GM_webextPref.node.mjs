@@ -118,7 +118,7 @@ function GM_webextPref({
     
     const modal = document.createElement("div");
     modal.className = "webext-pref-modal";
-    modal.onclick = e => {
+    modal.onclick = () => {
       modal.classList.remove("webext-pref-modal-open");
       modal.addEventListener("transitionend", () => {
         if (destroyView) {
