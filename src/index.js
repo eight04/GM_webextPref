@@ -1,6 +1,7 @@
 /* eslint-env greasemonkey */
 /* global $inline */
-const {createPref, createView} = require("webext-pref");
+const {createPref} = require("webext-pref");
+const {createUI, createBinding} = require("webext-pref-ui");
 
 const createGMStorage = require("./storage");
 
@@ -77,12 +78,19 @@ function GM_webextPref({
       
       iframe.contentDocument.querySelector(".dialog-style").textContent = $inline("dialog.css|cssmin|stringify");
       
-      destroyView = createView({
-        pref,
+      const root = iframe.contentDocument.querySelector(".dialog-body");
+      root.append(createUI({
         body,
-        root: iframe.contentDocument.querySelector(".dialog-body"),
-        getNewScope,
+        getMessage
+      }));
+      // iframe.contentDocument.querySelector(".dialog-body").append(root)
+      destroyView = createBinding({
+        pref,
+        
+        root,
         getMessage,
+        getNewScope,
+        
         alert,
         confirm,
         prompt

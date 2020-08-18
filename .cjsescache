@@ -1,6 +1,6 @@
-{
-  "node_modules/event-lite/event-lite.js": null,
-  "node_modules/webext-pref/lib/promisify.js": null,
-  "src/index.js": null,
-  "src/storage.js": null
-}
+[
+  "node_modules/event-lite/event-lite.js",
+  "node_modules/webext-pref/lib/promisify.js",
+  "src/index.js",
+  "src/storage.js"
+]
