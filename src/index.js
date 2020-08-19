@@ -1,6 +1,7 @@
 /* eslint-env greasemonkey */
 /* global $inline */
-const {createPref, createView} = require("webext-pref");
+const {createPref} = require("webext-pref");
+const {createUI, createBinding} = require("webext-pref-ui");
 
 const createGMStorage = require("./storage");
 
@@ -36,17 +37,15 @@ function GM_webextPref({
     
     const modal = document.createElement("div");
     modal.className = "webext-pref-modal";
-    modal.onclick = e => {
-      if (e.target === modal) {
-        modal.classList.remove("webext-pref-modal-open");
-        modal.addEventListener("transitionend", () => {
-          if (destroyView) {
-            destroyView();
-          }
-          modal.remove();
-          isOpen = false;
-        });
-      }
+    modal.onclick = () => {
+      modal.classList.remove("webext-pref-modal-open");
+      modal.addEventListener("transitionend", () => {
+        if (destroyView) {
+          destroyView();
+        }
+        modal.remove();
+        isOpen = false;
+      });
     };
     
     const style = document.createElement("style");
@@ -69,7 +68,11 @@ function GM_webextPref({
       </html>
     `;
     
-    modal.append(style, iframe);
+    const wrap = document.createElement("div");
+    wrap.className = "webext-pref-iframe-wrap";
+    
+    wrap.append(iframe);
+    modal.append(style, wrap);
     document.body.appendChild(modal);
     
     iframe.onload = () => {
@@ -77,12 +80,19 @@ function GM_webextPref({
       
       iframe.contentDocument.querySelector(".dialog-style").textContent = $inline("dialog.css|cssmin|stringify");
       
-      destroyView = createView({
-        pref,
+      const root = iframe.contentDocument.querySelector(".dialog-body");
+      root.append(createUI({
         body,
-        root: iframe.contentDocument.querySelector(".dialog-body"),
-        getNewScope,
+        getMessage
+      }));
+      
+      destroyView = createBinding({
+        pref,
+        
+        root,
         getMessage,
+        getNewScope,
+        
         alert,
         confirm,
         prompt
@@ -92,6 +102,10 @@ function GM_webextPref({
       title.className = "dialog-title";
       title.textContent = getTitle();
       iframe.contentDocument.querySelector(".webext-pref-toolbar").prepend(title);
+      
+      if (iframe.contentDocument.body.offsetWidth > modal.offsetWidth) {
+        iframe.contentDocument.body.classList.add("responsive");
+      }
       
       // calc iframe size
       iframe.style = `

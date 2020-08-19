@@ -108,7 +108,8 @@ button:focus {
 .webext-pref-text,
 .webext-pref-number,
 .webext-pref-textarea,
-.webext-pref-select {
+.webext-pref-select,
+.webext-pref-radiogroup {
   margin: 1em 0;
 }
 .webext-pref-body > :first-child {
@@ -125,41 +126,70 @@ button:focus {
   margin: 0.3em 0;
 }
 
-.webext-pref-checkbox {
+.webext-pref-checkbox,
+.webext-pref-radio {
   margin: 0.5em 0;
   padding-left: 1.5em;
 }
-.webext-pref-checkbox > input {
+.webext-pref-checkbox > input,
+.webext-pref-radio > input {
   margin-left: -1.5em;
   margin-right: 0.5em;
   vertical-align: middle;
 }
-.webext-pref-checkbox > label {
+.webext-pref-checkbox > label,
+.webext-pref-radio > label {
   cursor: pointer;
   vertical-align: middle;
 }
-.webext-pref-checkbox > label:hover {
+.webext-pref-checkbox > label:hover,
+.webext-pref-radio > label:hover {
   color: #707070;
 }
-.webext-pref-checkbox-children {
+.webext-pref-checkbox-children,
+.webext-pref-radio-children {
   margin: 0.7em 0 0;
   padding: 0;
   border-width: 0;
 }
-.webext-pref-checkbox-children[disabled] {
+.webext-pref-checkbox-children[disabled],
+.webext-pref-radio-children[disabled] {
   opacity: 0.5;
 }
-.webext-pref-checkbox-children > :first-child {
+.webext-pref-checkbox-children > :first-child,
+.webext-pref-radio-children > :first-child {
   margin-top: 0;
 }
-.webext-pref-checkbox-children > :last-child {
+.webext-pref-checkbox-children > :last-child,
+.webext-pref-radio-children > :last-child {
   margin-bottom: 0;
 }
-.webext-pref-checkbox-children > :last-child > :last-child {
+.webext-pref-checkbox-children > :last-child > :last-child,
+.webext-pref-radio-children > :last-child > :last-child {
   margin-bottom: 0;
 }
 
 /* helps */
 .webext-pref-help {
   color: #969696;
+}
+
+/* small ui */
+.responsive {
+  white-space: normal;
+}
+.responsive .dialog-body {
+  margin: 1em;
+}
+.responsive .webext-pref-toolbar {
+  display: block;
+}
+.responsive .dialog-title {
+  margin: 0 0 1em 0;
+}
+.responsive .webext-pref-toolbar button {
+  font-size: 1em;
+}
+.responsive .webext-pref-nav {
+  display: block;
 }

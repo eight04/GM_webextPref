@@ -6,7 +6,7 @@
 // @namespace   eight04.blogspot.com
 // @description GM_config Test Script
 // @include     http*
-// @require     ../dist/GM_webextPref.js
+// @require     ../dist/GM_webextPref.user.js
 // @grant       GM_registerMenuCommand
 // @grant       GM_getValue
 // @grant       GM_setValue
