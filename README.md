@@ -87,6 +87,11 @@ Open the config dialog.
 Changelog
 ---------
 
+* 0.4.0 (Aug 19, 2020)
+
+  - Update dependencies: webext-pref@0.6, webext-pref-ui@0.2
+  - Add: small UI that works better with small screen.
+
 * 0.3.0 (Aug 25, 2018)
 
   - Update webext-pref to 0.5.0. Now the script requires `GM_deleteValue/GM.deleteValue` APIs.
