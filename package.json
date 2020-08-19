@@ -1,6 +1,6 @@
 {
   "name": "gm-webext-pref",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A config library powered by webext-pref.",
   "author": "eight04 <eight04@gmail.com>",
   "license": "MIT",

@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name GM_webextPref
-// @version 0.3.0
+// @name gm-webext-pref
+// @version 0.4.0
 // @description A config library powered by webext-pref.
 // @license MIT
 // @author eight04 <eight04@gmail.com>
