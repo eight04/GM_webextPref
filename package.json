@@ -1,5 +1,5 @@
 {
-  "name": "GM_webextPref",
+  "name": "gm-webext-pref",
   "version": "0.3.0",
   "description": "A config library powered by webext-pref.",
   "author": "eight04 <eight04@gmail.com>",
@@ -15,7 +15,7 @@
     "build": "shx rm -rf dist && rollup -c",
     "preversion": "npm test",
     "version": "npm run build && git add .",
-    "postversion": "git push --follow-tags"
+    "postversion": "git push --follow-tags && npm publish"
   },
   "main": "dist/GM_webextPref.node.mjs",
   "unpkg": "dist/GM_webextPref.user.js",

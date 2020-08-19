@@ -9,7 +9,17 @@ Use webext-pref in userscripts. This library includes `createPref`, `createView`
 Installation
 ------------
 
-[Greasy Fork](https://greasyfork.org/zh-TW/scripts/371339-gm-webextpref)
+You can `@require` this script from [Greasy Fork](https://greasyfork.org/zh-TW/scripts/371339-gm-webextpref).
+
+This library is also hosted on npm so you can import it with a build tool:
+
+```
+npm install gm-webext-pref
+```
+
+```js
+import GM_webextPref from "gm-webext-pref";
+```
 
 Demo
 ----
