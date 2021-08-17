@@ -48,7 +48,8 @@
       "GM_deleteValue",
       "GM.deleteValue",
       "GM_addValueChangeListener",
-      "GM_registerMenuCommand"
+      "GM_registerMenuCommand",
+      "GM.registerMenuCommand"
     ]
   },
   "repository": "eight04/GM_webextPref"

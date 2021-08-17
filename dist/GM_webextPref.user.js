@@ -15,6 +15,7 @@
 // @grant GM.deleteValue
 // @grant GM_addValueChangeListener
 // @grant GM_registerMenuCommand
+// @grant GM.registerMenuCommand
 // @include *
 // ==/UserScript==
 
