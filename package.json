@@ -27,6 +27,7 @@
     "rollup": "^2.26.3",
     "rollup-plugin-cjs-es": "^1.0.1",
     "rollup-plugin-inline-js": "^0.4.0",
+    "rollup-plugin-write-output": "^0.1.0",
     "sinon": "^9.0.3",
     "userscript-meta-cli": "^0.4.2"
   },
