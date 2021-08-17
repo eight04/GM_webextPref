@@ -12,7 +12,7 @@
   "scripts": {
     "lint": "eslint **/*.js --cache",
     "test": "npm run lint && c8 --reporter=lcov mocha",
-    "build": "shx rm -rf dist && rollup -c",
+    "build": "shx rm -rf dist && rollup -c && inlinejs README.md -o README.md",
     "preversion": "npm test",
     "version": "npm run build && git add .",
     "postversion": "git push --follow-tags && npm publish"
@@ -23,6 +23,7 @@
     "@rollup/plugin-node-resolve": "^13.0.4",
     "c8": "^7.8.0",
     "eslint": "^7.32.0",
+    "inline-js": "^0.8.0",
     "mocha": "^9.0.3",
     "rollup": "^2.56.2",
     "rollup-plugin-cjs-es": "^1.0.1",
