@@ -24,7 +24,7 @@ import GM_webextPref from "gm-webext-pref";
 Grant
 -----
 
-This script requires following permissions:
+This script uses following permissions:
 
 <!--$inline.start("cmd:userscript-meta \\| node filter-grant.mjs|trim|markdown:codeblock,js")-->
 ```js
