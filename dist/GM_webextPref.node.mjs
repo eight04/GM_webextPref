@@ -99,8 +99,13 @@ function GM_webextPref({
   const initializing = pref.connect(createGMStorage());
   let isOpen = false;
   
-  if (typeof GM_registerMenuCommand === "function") {
-    GM_registerMenuCommand(`${getTitle()} - Configure`, openDialog);
+  const registerMenu = 
+    typeof GM_registerMenuCommand === "function" ? GM_registerMenuCommand :
+    typeof GM !== "undefined" && GM && GM.registerMenuCommand ? GM.registerMenuCommand.bind(GM) :
+    undefined;
+    
+  if (registerMenu) {
+    registerMenu(`${getTitle()} - Configure`, openDialog);
   }
   
   return Object.assign(pref, {
@@ -204,4 +209,4 @@ function GM_webextPref({
   }
 }
 
-export default GM_webextPref;
+export { GM_webextPref as default };
