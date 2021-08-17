@@ -116,6 +116,10 @@ Open the config dialog.
 Changelog
 ---------
 
+* 0.4.1 (Aug 17, 2021)
+
+  - Add: support GM4 menu.
+
 * 0.4.0 (Aug 19, 2020)
 
   - Update dependencies: webext-pref@0.6, webext-pref-ui@0.2
