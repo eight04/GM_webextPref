@@ -1,5 +1,4 @@
 /* eslint-env greasemonkey */
-/* global GM_addValueChangeListener */
 const EventLite = require("event-lite");
 
 function createGMStorage() {

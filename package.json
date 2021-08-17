@@ -12,7 +12,7 @@
   "scripts": {
     "lint": "eslint **/*.js --cache",
     "test": "npm run lint && c8 --reporter=lcov mocha",
-    "build": "shx rm -rf dist && rollup -c",
+    "build": "shx rm -rf dist && rollup -c && inlinejs README.md -o README.md",
     "preversion": "npm test",
     "version": "npm run build && git add .",
     "postversion": "git push --follow-tags && npm publish"
@@ -20,14 +20,16 @@
   "main": "dist/GM_webextPref.node.mjs",
   "unpkg": "dist/GM_webextPref.user.js",
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^9.0.0",
-    "c8": "^7.3.0",
-    "eslint": "^7.7.0",
-    "mocha": "^8.1.1",
-    "rollup": "^2.26.3",
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "c8": "^7.8.0",
+    "eslint": "^7.32.0",
+    "inline-js": "^0.8.0",
+    "mocha": "^9.0.3",
+    "rollup": "^2.56.2",
     "rollup-plugin-cjs-es": "^1.0.1",
-    "rollup-plugin-inline-js": "^0.4.0",
-    "sinon": "^9.0.3",
+    "rollup-plugin-inline-js": "^0.5.0",
+    "rollup-plugin-write-output": "^0.1.1",
+    "sinon": "^11.1.2",
     "userscript-meta-cli": "^0.4.2"
   },
   "eslintIgnore": [
@@ -47,7 +49,8 @@
       "GM_deleteValue",
       "GM.deleteValue",
       "GM_addValueChangeListener",
-      "GM_registerMenuCommand"
+      "GM_registerMenuCommand",
+      "GM.registerMenuCommand"
     ]
   },
   "repository": "eight04/GM_webextPref"

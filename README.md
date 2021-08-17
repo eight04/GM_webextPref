@@ -21,6 +21,25 @@ npm install gm-webext-pref
 import GM_webextPref from "gm-webext-pref";
 ```
 
+Grant
+-----
+
+This script uses following permissions:
+
+<!--$inline.start("cmd:userscript-meta \\| node filter-grant.mjs|trim|markdown:codeblock,js")-->
+```js
+// @grant GM_getValue
+// @grant GM.getValue
+// @grant GM_setValue
+// @grant GM.setValue
+// @grant GM_deleteValue
+// @grant GM.deleteValue
+// @grant GM_addValueChangeListener
+// @grant GM_registerMenuCommand
+// @grant GM.registerMenuCommand
+```
+<!--$inline.end-->
+
 Demo
 ----
 
