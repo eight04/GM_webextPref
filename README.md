@@ -84,18 +84,19 @@ This module exports a single function.
 ```js
 const pref = GM_webextPref({
   default: Object,
-  body: Array,
-  getNewScope?: () => newScopeName: String,
-  getMessage?: Function,
-  alert?: Function,
-  confirm?: Function,
-  prompt?: Function
+  separator?: String,
+  css?: String,
+  ...options
 });
 ```
 
 Create a `pref` object. `pref` inherits all methods from the pref object returned by `createPref`.
 
-`default` would be sent to [`createPref`](https://github.com/eight04/webext-pref#createpref); `body`, `getNewScope`, `getMessage`, `alert`, `confirm`, and `prompt` would be sent to [`createUI`](https://github.com/eight04/webext-pref-ui#createui) and ['createBinding'](https://github.com/eight04/webext-pref-ui#createbinding).
+`default` and `separator` would be sent to [`createPref`](https://github.com/eight04/webext-pref#createpref).
+
+`css` would be injected to the dialog for customization.
+
+Other `options` would be passed to [`createUI`](https://github.com/eight04/webext-pref-ui#createui) and [`createBinding`](https://github.com/eight04/webext-pref-ui#createbinding).
 
 If `GM_registerMenuCommand` exists, the function would register a menu command like:
 
