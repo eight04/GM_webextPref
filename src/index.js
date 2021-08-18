@@ -5,16 +5,8 @@ const {createUI, createBinding} = require("webext-pref-ui");
 
 const createGMStorage = require("./storage");
 
-function GM_webextPref({
-  default: _default,
-  body,
-  getNewScope,
-  getMessage,
-  alert,
-  confirm,
-  prompt
-}) {
-  const pref = createPref(_default);
+function GM_webextPref(options) {
+  const pref = createPref(options.default, options.separator);
   const initializing = pref.connect(createGMStorage());
   let isOpen = false;
   
@@ -86,21 +78,12 @@ function GM_webextPref({
       iframe.contentDocument.querySelector(".dialog-style").textContent = $inline("dialog.css|cssmin|stringify");
       
       const root = iframe.contentDocument.querySelector(".dialog-body");
-      root.append(createUI({
-        body,
-        getMessage
-      }));
+      root.append(createUI(options));
       
       destroyView = createBinding({
         pref,
-        
         root,
-        getMessage,
-        getNewScope,
-        
-        alert,
-        confirm,
-        prompt
+        ...options
       });
       
       const title = document.createElement("h2");
