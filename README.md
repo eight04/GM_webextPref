@@ -117,6 +117,11 @@ Open the config dialog.
 Changelog
 ---------
 
+* 0.4.2 (Aug 18, 2021)
+
+  - Add: pass more options to `createBinding`, `createUI`, and `createPref`.
+  - Add: `css` option.
+
 * 0.4.1 (Aug 17, 2021)
 
   - Add: support GM4 menu.
